@@ -1,0 +1,56 @@
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+<title>Loget-SEARCH-</title>
+</head>
+<body bgcolor="#f0f8ff" text="#000000">
+
+<h2>ログデータの表示</h2>
+<br>データベースに保存されてあるチャットログを表示します<br>
+<br><br>
+<%= form_tag("/loget", method:"post") do %>
+<%= submit_tag "再検索",style:"WIDTH:200px" %>
+<% end %><br>
+現在1ページあたりの表示件数は<font size=+2><font color=#ff0000><%= @items %>件</font></font>です。
+<form method="get" action="/selects/logsearch">
+<table border="1">
+        <tr><td>
+        <p>１ページあたりの表示件数：<br>
+        <input type="radio" name="item" value="20">：２０件
+        <input type="radio" name="item" value="30">：３０件
+        <input type="radio" name="item" value="100">：１００件
+        </p></td>
+        <td bgcolor="#CCCCCC"><input type="submit" value="件数変更"></td>
+        </tr>
+</table></form><br>
+<% @logsearch.each do |ofMessageArchive3| %>
+<% end %>
+<font size=+2><font color=#ff0000><%= @logsearch.total_count %>件</font></font>ログが登録されています。<br><br>
+<font size=+2>検索ワード</font><br>
+<font size=+1>&ensp;発言者:<B><Font Color=#ff0000><%= @sfromJID %></Font></B><br>
+        &ensp;発言場所(チャットルーム等)：<B><Font Color=#0000ff><%= @stoJID %></Font></B><br>
+        &ensp;キーワード：<B><Font Color=#008000><%= @sword %></Font></B><br>
+        &ensp;日付(From)：<B><Font Color=#FF8C00><%= @year1 %>/<%= @month1 %>/<%= @day1 %></Font></B><br>
+        &ensp;日付(To)：<B><Font Color=#FF00FF><%= @year2 %>/<%= @month2 %>/<%= @day2 %></Font></B></font><br><br>
+<%= paginate @logsearch %>
+<table border="1">
+        <tr bgcolor="#CCCCCC">
+                <td style="height:40px" align="center"><big><b>日付</b></big></td>
+                <td style="height:40px" align="center"><big><b>発言者</b></big></td>
+                <td style="height:40px" align="center"><big><b>内容</b></big></td>
+                <td style="height:40px" align="center"><big><b>発言場所（チャットルーム等）</b></big></td>
+        </tr>
+<% @logsearch.each do |ofMessageArchive3| %>
+<tr>
+<td style="height:35px"><%= Time.at(ofMessageArchive3.sentDate/1000).strftime("%Y/%m/%d %H:%M") %> </td>
+<td style="height:35px"><font color=#ff0000><%= ofMessageArchive3.fromJID %></font></td>
+<td width="650" style="height:35px"><%= hbr ofMessageArchive3.body %></td>
+<td style="height:35px"><font color=#0000ff><b><i><%= ofMessageArchive3.toJID %></i></b></font></td>
+</tr>
+<% end %>
+</table>
+<%= paginate @logsearch %>
+<br>
+<%= form_tag("/loget", method:"post") do %>
+<%= submit_tag "再検索",style:"WIDTH:200px" %>
+<% end %>
+<br>

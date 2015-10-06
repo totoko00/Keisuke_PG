@@ -1,0 +1,77 @@
+<head>
+<!-- <script src="calendarlay4.js" type="text/javascript"></script> -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+<title>Loget-TOP-</title>
+</head>
+<body bgcolor="#f0f8ff" text="#000000">
+
+<p><big>チャットログ取得用ＷＥＢアプリ</big><font size="7" color ="#40E0D0">Ｌｏ<font size="7" color ="#8B0000">ｇ</font>ｅｔ</font></p>
+<h3><font color ="#ff0000">虫眼鏡のアイコン「<img src="filter_off.gif">」をクリックすると、検索ワードを直接入力できます。</font></h3>
+アイコンをクリックすると、この状態(<img src="filter_on.gif">)になるので、検索ワードを入力してください。<br>
+再びアイコンをクリックすると、元の状態(<img src="filter_off.gif">)に戻ります。<br><br>
+
+<table border="1">
+<form action="/selects/logall" method="get">
+ <tr>
+        <td>全ログ表示(データベースにあるチャットログを全て閲覧できます）<br>
+       <p>１ページあたりの表示件数：<br>
+       <input type="radio" name="item" value="20" checked>：２０件
+       <input type="radio" name="item" value="30">：３０件
+       <input type="radio" name="item" value="100">：１００件
+       </p></td>
+       <td bgcolor="#CCCCCC"><input type="submit" value="全チャットログの表示"></td>
+ </tr>
+ </form>
+
+<%= form_tag("/selects/logsearch", method:"get") do %>
+
+<tr>
+        <td>
+                発言者：<select name="search_fromJID">
+                <option value="" selected>未入力</option>
+                <option value="Ruby-san">Ruby-san</option>
+                <option value="keisuke.yamaguchi">Keisuke.Yamaguchi</option>
+                <option value="kousaka.honoka">Honoka</option>
+                <option value="sonoda.umi">Umi</option>
+        <% @users.each do |name| %>
+                <option value=<% name.uid %>><%= name.uid %></option>
+        <% end %>
+                </select><br>
+
+                発言場所（チャットルーム等）：<select name="search_toJID">
+                <option value="" selected>未入力</option>
+                <option value="#bizbiz">#bizbiz</option>
+                <option value="keisuke.yamaguchi">Keisuke.Yamaguchi</option>
+                <option value="otonoki">Otonoki</option>
+                <option value="cantera">cantera</option>
+        <% @users.each do |name| %>
+                <option value=<% name.uid %>><%= name.uid %></option>
+        <% end %>
+        <% @spasan.each do |spname| %>
+                <option value=<% spname.toJID %>><%= spname.toJID %></option>
+        <% end %>
+                </select><br>
+
+                キーワード：<input type="text" name="search_word" size="80"><br>
+
+                日付(From):
+                <%= date_select("se_date1","d1",:use_month_numbers => true,:start_year => Date.today.year-1,:end_year => Date.today.year+1,:default => Date.today - 1.month) %><br>
+
+                日付(To):
+                <%= date_select("se_date2","d2",:use_month_numbers => true,:start_year => Date.today.year-1,:end_year => Date.today.year+1) %>
+        <p>１ページあたりの表示件数：<br>
+       <input type="radio" name="item" value="20" checked>：２０件
+       <input type="radio" name="item" value="30">：３０件
+       <input type="radio" name="item" value="100">：１００件
+       </p>
+</td>
+        <td bgcolor="#CCCCCC"><%= submit_tag "閲覧する条件検索",:name => nil %></td>
+<% end %>
+</form>
+</table>
+
+<script src="prototype.js" type="text/javascript"></script>
+<script src="incautoselecter.js" type="text/javascript"></script>
+<script type="text/javascript">
+new IncAutoSelecter();
+</script>

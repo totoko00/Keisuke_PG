@@ -1,0 +1,48 @@
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+<title>Loget-ALL-</title>
+</head>
+<body bgcolor="#f0f8ff" text="#000000">
+
+<h2>ログデータの表示</h2>
+<br>データベースに保存されてあるチャットログを表示します<br>
+<br><br>
+<%= form_tag("/loget", method:"post") do %>
+<%= submit_tag "トップ",style:"WIDTH:200px" %>
+<% end %><br>
+現在1ページあたりの表示件数は<font size=+2><font Color=#ff0000><%= @items %>件</font></font>です。
+<form method="get" action="/selects/logall">
+<table border="1">
+        <tr><td>
+        <p>１ページあたりの表示件数：<br>
+        <input type="radio" name="item" value="20">：２０件
+        <input type="radio" name="item" value="30">：３０件
+        <input type="radio" name="item" value="100">：１００件
+        </p></td>
+        <td bgcolor="#CCCCCC"><input type="submit" value="件数変更"></td>
+        </tr>
+</table></form><br>
+<% @logall.each do |ofMessageArchive3| %><% end %>
+<%= paginate @logall%>
+<table border="1">
+        <tr bgcolor="#CCCCCC">
+                <td style="height:40px" align="center"><big><b>日付</b></big></td>
+                <td style="height:40px" align="center"><big><b>発言者</b></big></td>
+                <td style="height:40px" align="center"><big><b>内容</b></big></td>
+                <td style="height:40px" align="center"><big><b>発言場所（チャットルーム等）</b></big></td>
+        </tr>
+<% @logall.each do |ofMessageArchive3| %>
+<tr>
+<td style="height:35px"><%= Time.at(ofMessageArchive3.sentDate/1000).strftime("%Y/%m/%d %H:%M") %></td>
+<td style="height:35px"><font color=#ff0000><%= ofMessageArchive3.fromJID %></font></td>
+<td width="650" style="height:35px"><%= hbr ofMessageArchive3.body %></td>
+<td style="height:35px"><font color=#0000ff><b><i><%= ofMessageArchive3.toJID %></i></b></font></td>
+</tr>
+<% end %>
+</table>
+<%= paginate @logall%>
+<br><br>
+<%= form_tag("/loget", method:"post") do %>
+<%= submit_tag "トップ",style:"WIDTH:200px" %>
+<% end %>
+<br>
