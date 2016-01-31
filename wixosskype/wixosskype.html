@@ -1,0 +1,39 @@
+<head>
+  <title>wixosskype</title>
+</head>
+
+<body>
+	{{> contents}}
+</body>
+
+<template name="contents">
+<div id="head">
+    <div id="h_title">wixoss　Skype対戦用書き込みサイト「wixosskype」</div>
+    <p><div id="m_title">{{max}}件まで表示。その後は古いものから順に削除されます。あなたの背景色は
+      <span><div id="colorbox" style="{{tcolor}}"></div></span>です。
+      現在は簡易的なシステムですが、後々改良していく予定（多分）。
+    </div></p>
+    <div>Enterで書き込み。SkypeIDクリックでSkype起動。</div> 
+    <div id="control">
+    <input id="postmes" type="text" placeholder="skypeID（必須）">
+    <input id="postname" type="text" placeholder="時間帯（無記入は「いつでも」）">
+    <input id="postvoice" type="text" placeholder="一言">
+    要望や不具合報告はTwitterにてお願いします。
+    <a href="https://twitter.com/wixosskype_admi" class="twitter-follow-button" data-show-count="false" data-lang="ja">@wixosskype_admi</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+    </div>
+  </div>
+  <div id="wrap">
+    <div id="messages">
+    {{#each messages}}
+      <div class="rec_wrap" style="{{style}}">
+        <div class="rec_date">{{datetime}}</div>
+        <div class="rec_name">{{name}}</div>
+        <div class="rec_voice">{{voice}}</div>
+        <script type="text/javascript" src="http://download.skype.com/share/skypebuttons/js/skypeCheck.js"></script>
+       	<div class="rec_mes"><a href="skype:{{message}}?add">{{message}}</a></div>
+     </div>
+   {{/each}}
+   </div>
+  </div>
+</template>
