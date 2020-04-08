@@ -27,3 +27,6 @@
 		* Node.jsをベースとし，JavaScriptとHTML+CSSだけWebアプリケーションで記述できる新たなWebアプリケーション開発プラットフォーム
 * http://wixosskype.meteor.com
 	* 実際にアップロードしたもの
+	
+##Google Colaboratoryでの演習成果（グーグルドライブの共有リンク）
+https://drive.google.com/open?id=15ZEI60X9TFf3vnZbq-t3woN6WuC2lInq
